@@ -187,12 +187,29 @@ public class Motorcycle implements Vehicle, Serializable {
         lastModified = System.currentTimeMillis();
     }
 
-    @Override
-    protected Motorcycle clone() throws CloneNotSupportedException {
-        return (Motorcycle) super.clone();
+    private void addClone(Model model) {
+        model.next = head;
+        model.prev = head.prev;
+
+        head.prev.next = model;
+        head.prev = model;
     }
 
-    private static class Model implements Serializable{
+    @Override
+    public Motorcycle clone() throws CloneNotSupportedException {
+        Motorcycle motorcycle = (Motorcycle) super.clone();
+        motorcycle.head = new Model(head.name, head.price);
+        motorcycle.head.next = motorcycle.head;
+        motorcycle.head.prev = motorcycle.head;
+        Model curr = head.next;
+        while (curr != head) {
+            motorcycle.addClone(new Model(curr.name, curr.price));
+            curr = curr.next;
+        }
+        return motorcycle;
+    }
+
+    private static class Model implements Serializable, Cloneable {
         String name;
 
         double price;
@@ -223,18 +240,8 @@ public class Motorcycle implements Vehicle, Serializable {
         }
 
         @Override
-        public String toString() {
-            if (next == null) {
-                if(prev == null) {
-                    return "[Name: " + name + ", Price: " + price + ", Next: " + null + ", Prev: " + null + "]\n";
-                } else {
-                    return "[Name: " + name + ", Price: " + price + ", Next: " + null + ", Prev: " + prev.getName() + "]\n";
-                }
-            } else if (prev == null) {
-                return "[Name: " + name + ", Price: " + price + ", Next: " + next.getName() + ", Prev: " + null + "]\n";
-            } else {
-                return "[Name: " + name + ", Price: " + price + ", Next: " + next.getName() + ", Prev: " + prev.getName() + "]\n";
-            }
+        protected Model clone() throws CloneNotSupportedException {
+            return (Model) super.clone();
         }
     }
 }

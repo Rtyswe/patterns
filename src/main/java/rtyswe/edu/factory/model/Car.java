@@ -136,10 +136,12 @@ public class Car implements Vehicle, Serializable {
 
     @Override
     public Car clone() throws CloneNotSupportedException {
-        return (Car) super.clone();
+        Car car = (Car) super.clone();
+        car.models = Arrays.stream(models).map(Model::clone).toArray(Model[]::new);
+        return car;
     }
 
-    private class Model implements Serializable {
+    private static class Model implements Serializable, Cloneable {
         private String name;
 
         private double price;
@@ -181,6 +183,16 @@ public class Car implements Vehicle, Serializable {
         @Override
         public String toString() {
             return "[Name: " + name + ", Price: " + price + "]\n";
+        }
+
+        @Override
+        protected Model clone() {
+            try {
+                return (Model) super.clone();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
 }

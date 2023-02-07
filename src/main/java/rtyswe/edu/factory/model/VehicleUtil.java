@@ -1,5 +1,6 @@
 package rtyswe.edu.factory.model;
 
+import rtyswe.edu.decorator.SynchronizedVehicle;
 import rtyswe.edu.factory.exeptions.DuplicateModelNameException;
 
 import java.io.*;
@@ -30,6 +31,10 @@ public final class VehicleUtil {
 
     public static Vehicle createInstance(String brand, int size) {
         return factory.createInstance(brand, size);
+    }
+
+    public static Vehicle synchronizedVehicle(Vehicle vehicle) {
+        return new SynchronizedVehicle(vehicle);
     }
 
     public static void writeVehicleToByteStream(Vehicle vehicle, OutputStream outputStream) throws IOException {
