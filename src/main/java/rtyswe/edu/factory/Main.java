@@ -1,8 +1,7 @@
 package rtyswe.edu.factory;
 
-import rtyswe.edu.factory.model.MotorcycleFactory;
-import rtyswe.edu.factory.model.Vehicle;
-import rtyswe.edu.factory.model.VehicleUtil;
+import rtyswe.edu.model.Vehicle;
+import rtyswe.edu.model.VehicleUtil;
 
 public class Main {
 

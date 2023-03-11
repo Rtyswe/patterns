@@ -1,9 +1,8 @@
 package rtyswe.edu.prototype;
 
-import rtyswe.edu.factory.exeptions.DuplicateModelNameException;
-import rtyswe.edu.factory.exeptions.NoSuchModelNameException;
-import rtyswe.edu.factory.model.Car;
-import rtyswe.edu.factory.model.Motorcycle;
+import rtyswe.edu.exeptions.DuplicateModelNameException;
+import rtyswe.edu.exeptions.NoSuchModelNameException;
+import rtyswe.edu.model.Car;
 
 public class Main {
 
